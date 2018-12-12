@@ -1,4 +1,16 @@
-
+#' Generating the values of the multiplication table
+#'
+#' Creates a data frame with the values of the multiplication table and identifies the factors for given k.
+#'
+#' @param k Numeric vector specifying the values of k
+#' @param xmax Max value of x to be generated
+#' @param ymax Max value of y to be generated
+#'
+#' @return Data frame
+#'
+#' @examples
+#' create_table()
+#'
 #' @export
 create_table <- function(k, xmax, ymax) {
     # Create the grid of values and their product
