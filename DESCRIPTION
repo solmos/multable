@@ -1,0 +1,17 @@
+Package: multable
+Title: Exploring Patterns in the Multiplication Table
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Sergio",
+           family = "Olmos Pardo",
+           role = c("aut", "cre"),
+           email = "s.olmos.pardo@gmail.com")
+Description: Visualize the multiplication table coloring factors of given numbers.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    ggplot2,
+    numbers,
+    wesanderson
+RoxygenNote: 6.1.1
