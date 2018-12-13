@@ -20,6 +20,6 @@ Data frame
 Creates a data frame with the values of the multiplication table and identifies the factors for given k.
 }
 \examples{
-create_table()
+create_table(2, 10, 10)
 
 }

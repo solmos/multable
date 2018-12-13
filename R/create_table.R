@@ -9,9 +9,10 @@
 #' @return Data frame
 #'
 #' @examples
-#' create_table()
+#' create_table(2, 10, 10)
 #'
 #' @export
+
 create_table <- function(k, xmax, ymax) {
     # Create the grid of values and their product
     values <- expand.grid(x = 0:xmax,
@@ -32,6 +33,7 @@ create_table <- function(k, xmax, ymax) {
     combination <- interaction(multiples)
 
     table <- data.frame(values, multiples, combination)
-    cat("There were", length(levels(table$combination)), "observed combinations.")
+    cat("There were", length(levels(table$combination)),
+        "observed combinations.")
     table
 }

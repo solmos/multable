@@ -1,5 +1,18 @@
+#' Plotting colored multiplication table
+#'
+#' Visualize the multiplication table coloring factors of k.
+#'
+#' @param k Values for which to find factors
+#' @param xmax Max value of x to show in the plot
+#' @param ymax Max value of y to show in the plot
+#' @param colors Colors to be assigned to factors of k. Defaults to a random palette from wesanderson package
+#' @param show_title Show title in the plot?
+#' @param show_numbers Show corresponding numbers in the cells?
+#' @param show_legend Show legend identifying the color mapping
+#'
 #' @importFrom numbers mLCM
-#' @import ggplot2
+#' @importFrom ggplot2 ggplot aes geom_tile scale_y_continuous scale_fill_manual
+#' @importFrom ggplot2 coord_fixed theme_void ggtitle guides
 
 #' @export
 draw_pattern <- function(k, xmax, ymax,
@@ -11,13 +24,14 @@ draw_pattern <- function(k, xmax, ymax,
         xmax <- numbers::mLCM(k) * 4
         # If xmax/ymax is very large it will take a lot of time
         # and the plot will be ugly
+        # Set maximal range to 200 cells long
         xmax <- ifelse(xmax < 200, xmax, 200)
     }
     if (missing(ymax)) {
         ymax <- numbers::mLCM(k) * 4
         ymax <- ifelse(ymax < 200, ymax, xmax)
     }
-    # Grid of values with corresponding products
+    # Grid of values with corresponding products and identified factors
     table <- create_table(k, xmax, ymax)
 
     # Default colors: random color palette from wesanderson package
@@ -31,14 +45,15 @@ draw_pattern <- function(k, xmax, ymax,
         chosen_colors <- colors
         n_combinations <- length(levels(table$combination))
         if (length(chosen_colors) != n_combinations) {
-            cat("There were", n_combinations, "observed combinations, but",
+            cat("Warning: There were", n_combinations,
+                "observed combinations, but",
                 length(chosen_colors), "colors introduced.")
         }
     }
 
-    plt <- ggplot2::ggplot(table, aes(x, y)) +
-        ggplot2::geom_tile(aes(fill = combination)) +
-        ggplot2::scale_y_continuous(trans = "reverse") +
+    plt <- ggplot(table, aes(x, y)) +
+        geom_tile(aes(fill = combination)) +
+        scale_y_continuous(trans = "reverse") +
         scale_fill_manual(values = chosen_colors) +
         coord_fixed() +
         theme_void()
