@@ -1,19 +1,28 @@
-# multable
 
-## Overview
+multable
+========
 
-multable provides some functions to visualize the patterns that emerge when we
-color factors of some specified values.
+Overview
+--------
 
-## Installation
+multable provides some functions to visualize the patterns that emerge when we color factors of some specified values.
 
-```{r}
+Installation
+------------
+
+``` r
 # install.packages("devtools")
 devtools::install_github("solmos/multable")
 ```
 
-## Examples
+Examples
+--------
 
-```{r}
+``` r
+library(multable)
 draw_pattern(k = c(2, 3))
 ```
+
+    ## There were 4 observed combinations.
+
+![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
