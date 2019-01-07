@@ -23,6 +23,4 @@ library(multable)
 draw_pattern(k = c(2, 3))
 ```
 
-    ## There were 4 observed combinations.
-
 ![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
