@@ -4,7 +4,7 @@
 \alias{draw_pattern}
 \title{Plotting colored multiplication table}
 \usage{
-draw_pattern(k, xmax, ymax, colors, show_title = TRUE,
+draw_pattern(k, xmax, ymax, colors, show_title = FALSE,
   show_numbers = FALSE, show_legend = FALSE)
 }
 \arguments{

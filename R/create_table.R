@@ -5,6 +5,7 @@
 #' @param k Numeric vector specifying the values of k
 #' @param xmax Max value of x to be generated
 #' @param ymax Max value of y to be generated
+#' @param show_combinations Whether to show or not the number of combinations of k
 #'
 #' @return Data frame
 #'
@@ -13,7 +14,7 @@
 #'
 #' @export
 
-create_table <- function(k, xmax, ymax) {
+create_table <- function(k, xmax, ymax, show_combinations = FALSE) {
     # Create the grid of values and their product
     values <- expand.grid(x = 0:xmax,
                           y = 0:ymax)
@@ -33,7 +34,9 @@ create_table <- function(k, xmax, ymax) {
     combination <- interaction(multiples)
 
     table <- data.frame(values, multiples, combination)
-    cat("There were", length(levels(table$combination)),
-        "observed combinations.")
+    if (show_combinations == TRUE) {
+        cat("There were", length(levels(table$combination)),
+            "observed combinations.")
+    }
     table
 }

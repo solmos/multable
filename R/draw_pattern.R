@@ -11,26 +11,37 @@
 #' @param show_legend Show legend identifying the color mapping
 #'
 #' @importFrom numbers mLCM
-#' @importFrom ggplot2 ggplot aes geom_tile scale_y_continuous scale_fill_manual
+#' @importFrom ggplot2 ggplot aes geom_tile geom_text scale_y_continuous scale_fill_manual
 #' @importFrom ggplot2 coord_fixed theme_void ggtitle guides
 
 #' @export
 draw_pattern <- function(k, xmax, ymax,
-                         colors, show_title = TRUE,
+                         colors, show_title = FALSE,
                          show_numbers = FALSE,
                          show_legend = FALSE) {
 
-    if (missing(xmax)) {
+    ## Set the default xmax and ymax
+    # When k is a vector of values
+    if (missing(xmax) & length(k) > 1) {
         xmax <- numbers::mLCM(k) * 4
         # If xmax/ymax is very large it will take a lot of time
         # and the plot will be ugly
         # Set maximal range to 200 cells long
         xmax <- ifelse(xmax < 200, xmax, 200)
     }
-    if (missing(ymax)) {
+    if (missing(ymax) & length(k) > 1) {
         ymax <- numbers::mLCM(k) * 4
         ymax <- ifelse(ymax < 200, ymax, xmax)
     }
+
+    # When k is a single value
+    if (missing(xmax) & length(k) == 1) {
+        xmax <- k * 4
+    }
+    if (missing(ymax) & length(k) == 1) {
+        ymax <- k * 4
+    }
+
     # Grid of values with corresponding products and identified factors
     table <- create_table(k, xmax, ymax)
 
@@ -51,12 +62,22 @@ draw_pattern <- function(k, xmax, ymax,
         }
     }
 
-    plt <- ggplot(table, aes(x, y)) +
-        geom_tile(aes(fill = combination)) +
-        scale_y_continuous(trans = "reverse") +
-        scale_fill_manual(values = chosen_colors) +
-        coord_fixed() +
-        theme_void()
+    if (show_numbers == FALSE) {
+        plt <- ggplot(table, aes(x, y)) +
+            geom_tile(aes(fill = combination)) +
+            scale_y_continuous(trans = "reverse") +
+            scale_fill_manual(values = chosen_colors) +
+            coord_fixed() +
+            theme_void()
+    } else {
+        plt <- ggplot(table, aes(x, y)) +
+            geom_tile(aes(fill = combination), color = "white") +
+            geom_text(aes(label = product), color = "white") +
+            scale_y_continuous(trans = "reverse") +
+            scale_fill_manual(values = chosen_colors) +
+            coord_fixed() +
+            theme_void()
+    }
 
     # Show title option
     if (show_title == TRUE) {
@@ -75,5 +96,6 @@ draw_pattern <- function(k, xmax, ymax,
     if (show_legend == FALSE) {
         plt <- plt + guides(fill = FALSE)
     }
+
     plt
 }

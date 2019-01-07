@@ -4,7 +4,7 @@
 \alias{create_table}
 \title{Generating the values of the multiplication table}
 \usage{
-create_table(k, xmax, ymax)
+create_table(k, xmax, ymax, show_combinations = FALSE)
 }
 \arguments{
 \item{k}{Numeric vector specifying the values of k}
@@ -12,6 +12,8 @@ create_table(k, xmax, ymax)
 \item{xmax}{Max value of x to be generated}
 
 \item{ymax}{Max value of y to be generated}
+
+\item{show_combinations}{Whether to show or not the number of combinations of k}
 }
 \value{
 Data frame
